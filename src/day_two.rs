@@ -9,14 +9,14 @@ struct PartOnePolicyPasswordPair<'a> {
 
 impl PartOnePolicyPasswordPair<'_> {
     fn from_string(string: &str) -> PartOnePolicyPasswordPair {
-        let mut parts = string.split(" ");
+        let mut parts = string.split(' ');
         let range: Vec<i32> = parts
             .next()
             .unwrap()
-            .split("-")
+            .split('-')
             .map(|n| n.parse().unwrap())
             .collect();
-        let letter = parts.next().unwrap().chars().nth(0).unwrap();
+        let letter = parts.next().unwrap().chars().next().unwrap();
         let password = parts.next().unwrap();
 
         PartOnePolicyPasswordPair {
@@ -36,11 +36,11 @@ impl PartOnePolicyPasswordPair<'_> {
 pub fn part_one() -> usize {
     let lines: Vec<String> = file_to_vec("input/2.txt");
 
-    return lines
+    lines
         .iter()
         .map(|e| PartOnePolicyPasswordPair::from_string(e))
         .filter(|p| p.matches())
-        .count();
+        .count()
 }
 
 struct PartTwoPolicyPasswordPair<'a> {
@@ -51,14 +51,14 @@ struct PartTwoPolicyPasswordPair<'a> {
 
 impl PartTwoPolicyPasswordPair<'_> {
     fn from_string(string: &str) -> PartTwoPolicyPasswordPair {
-        let mut parts = string.split(" ");
+        let mut parts = string.split(' ');
         let nums = parts
             .next()
             .unwrap()
-            .split("-")
+            .split('-')
             .map(|n| n.parse().unwrap())
             .collect();
-        let letter = parts.next().unwrap().chars().nth(0).unwrap();
+        let letter = parts.next().unwrap().chars().next().unwrap();
         let password = parts.next().unwrap();
 
         PartTwoPolicyPasswordPair {
@@ -69,22 +69,20 @@ impl PartTwoPolicyPasswordPair<'_> {
     }
 
     fn matches(&self) -> bool {
-        let count = self
-            .nums
+        self.nums
             .iter()
             .filter(|n| self.password.chars().nth(*n - 1).unwrap() == self.letter)
-            .count();
-
-        count == 1
+            .count()
+            == 1
     }
 }
 
 pub fn part_two() -> usize {
     let lines: Vec<String> = file_to_vec("input/2.txt");
 
-    return lines
+    lines
         .iter()
         .map(|e| PartTwoPolicyPasswordPair::from_string(e))
         .filter(|p| p.matches())
-        .count();
+        .count()
 }
