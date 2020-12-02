@@ -1,4 +1,3 @@
-use crate::util::file_to_vec;
 use std::ops::RangeInclusive;
 
 struct PartOnePolicyPasswordPair<'a> {
@@ -33,13 +32,11 @@ impl PartOnePolicyPasswordPair<'_> {
     }
 }
 
-pub fn part_one() -> usize {
-    let lines: Vec<String> = file_to_vec("input/2.txt");
-
+pub fn part_one(lines: &[String]) -> usize {
     lines
         .iter()
-        .map(|e| PartOnePolicyPasswordPair::from_string(e))
-        .filter(|p| p.matches())
+        .map(|l| PartOnePolicyPasswordPair::from_string(l))
+        .filter(PartOnePolicyPasswordPair::matches)
         .count()
 }
 
@@ -77,12 +74,10 @@ impl PartTwoPolicyPasswordPair<'_> {
     }
 }
 
-pub fn part_two() -> usize {
-    let lines: Vec<String> = file_to_vec("input/2.txt");
-
+pub fn part_two(lines: &[String]) -> usize {
     lines
         .iter()
-        .map(|e| PartTwoPolicyPasswordPair::from_string(e))
-        .filter(|p| p.matches())
+        .map(|l| PartTwoPolicyPasswordPair::from_string(l))
+        .filter(PartTwoPolicyPasswordPair::matches)
         .count()
 }
