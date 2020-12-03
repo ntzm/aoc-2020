@@ -9,19 +9,16 @@ struct PartOnePolicyPasswordPair<'a> {
 impl PartOnePolicyPasswordPair<'_> {
     fn from_string(string: &str) -> PartOnePolicyPasswordPair {
         let mut parts = string.split(' ');
-        let range: Vec<i32> = parts
-            .next()
-            .unwrap()
-            .split('-')
-            .map(|n| n.parse().unwrap())
-            .collect();
+        let mut range_parts = parts.next().unwrap().split('-');
+        let start = range_parts.next().unwrap().parse().unwrap();
+        let end = range_parts.next().unwrap().parse().unwrap();
         let letter = parts.next().unwrap().chars().next().unwrap();
         let password = parts.next().unwrap();
 
         PartOnePolicyPasswordPair {
             password,
             letter,
-            allowed_occurrence_range: (range[0]..=range[1]),
+            allowed_occurrence_range: (start..=end),
         }
     }
 
@@ -43,34 +40,32 @@ pub fn part_one(lines: &[String]) -> usize {
 struct PartTwoPolicyPasswordPair<'a> {
     password: &'a str,
     letter: char,
-    nums: Vec<usize>,
+    num_1: usize,
+    num_2: usize,
 }
 
 impl PartTwoPolicyPasswordPair<'_> {
     fn from_string(string: &str) -> PartTwoPolicyPasswordPair {
         let mut parts = string.split(' ');
-        let nums = parts
-            .next()
-            .unwrap()
-            .split('-')
-            .map(|n| n.parse().unwrap())
-            .collect();
+        let mut num_parts = parts.next().unwrap().split('-');
+        let num_1 = num_parts.next().unwrap().parse().unwrap();
+        let num_2 = num_parts.next().unwrap().parse().unwrap();
         let letter = parts.next().unwrap().chars().next().unwrap();
         let password = parts.next().unwrap();
 
         PartTwoPolicyPasswordPair {
             password,
             letter,
-            nums,
+            num_1,
+            num_2,
         }
     }
 
     fn matches(&self) -> bool {
-        self.nums
-            .iter()
-            .filter(|n| self.password.chars().nth(*n - 1).unwrap() == self.letter)
-            .count()
-            == 1
+        let num_1_matches = self.password.chars().nth(self.num_1 - 1).unwrap() == self.letter;
+        let num_2_matches = self.password.chars().nth(self.num_2 - 1).unwrap() == self.letter;
+
+        num_1_matches != num_2_matches
     }
 }
 
