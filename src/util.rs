@@ -1,4 +1,5 @@
 use std::collections::BTreeSet;
+use std::fs;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::str::FromStr;
@@ -23,4 +24,8 @@ where
         .lines()
         .map(|l| l.unwrap().parse::<T>().unwrap())
         .collect()
+}
+
+pub fn file_to_string(path: &str) -> String {
+    fs::read_to_string(path).unwrap()
 }
