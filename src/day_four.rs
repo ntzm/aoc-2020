@@ -77,7 +77,7 @@ pub fn part_one(input: &str) -> usize {
     input
         .split("\n\n")
         .map(|a| {
-            a.split(&['\n', ' '][..])
+            a.split_whitespace()
                 .map(|pair| pair.split(':').next().unwrap())
                 .collect::<BTreeSet<_>>()
         })
@@ -89,7 +89,7 @@ pub fn part_two(input: &str) -> usize {
     input
         .split("\n\n")
         .map(|a| {
-            a.split(&['\n', ' '][..])
+            a.split_whitespace()
                 .map(|pair| {
                     let mut parts = pair.split(':');
                     (parts.next().unwrap(), parts.next().unwrap())
