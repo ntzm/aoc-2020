@@ -1,6 +1,7 @@
 mod day_five;
 mod day_four;
 mod day_one;
+mod day_six;
 mod day_three;
 mod day_two;
 mod util;
@@ -11,6 +12,7 @@ fn main() {
     let day_three_input = util::file_to_vec("input/3.txt");
     let day_four_input = util::file_to_string("input/4.txt");
     let day_five_input = util::file_to_vec("input/5.txt");
+    let day_six_input = util::file_to_string("input/6.txt");
 
     println!(
         "Day 1, part 1: {}",
@@ -31,4 +33,5 @@ fn main() {
         "Day 5, part 2: {}",
         day_five::part_two(&day_five_input).unwrap()
     );
+    println!("Day 6, part 1: {}", day_six::part_one(&day_six_input));
 }
