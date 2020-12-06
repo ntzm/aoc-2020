@@ -1,3 +1,5 @@
+#![feature(iterator_fold_self)]
+
 mod day_five;
 mod day_four;
 mod day_one;
@@ -34,4 +36,5 @@ fn main() {
         day_five::part_two(&day_five_input).unwrap()
     );
     println!("Day 6, part 1: {}", day_six::part_one(&day_six_input));
+    println!("Day 6, part 2: {}", day_six::part_two(&day_six_input));
 }
